@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NeuroCount — тренируй мозг с ментальной арифметикой</title>
+    <!-- Google Fonts + Font Awesome + AOS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefce8;
+            color: #3b2f1f;
+            scroll-behavior: smooth;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f59e0b;
+            color: white;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+        }
+        .btn:hover {
+            background-color: #d97706;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #f59e0b;
+            color: #f59e0b;
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background-color: #f59e0b;
+            color: white;
+        }
+        .hero .btn-outline {
+            border-color: white;
+            color: white;
+            background: rgba(255,255,255,0.15);
+        }
+        .hero .btn-outline:hover {
+            background: white;
+            color: #f59e0b;
+            border-color: white;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(45, 35, 20, 0.9), rgba(245, 158, 11, 0.85)), url('https://placehold.co/1920x1080/b06810/white?text=Brain+Training+Mental+Arithmetic') center/cover no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+        }
+        .hero-content {
+            max-width: 700px;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.92;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Секции */
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            color: #b45309;
+        }
+        .section-sub {
+            text-align: center;
+            max-width: 700px;
+            margin: -30px auto 50px;
+            color: #9b6b3e;
+            font-size: 1.1rem;
+        }
+
+        /* Карточки */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: white;
+            padding: 32px 24px;
+            border-radius: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 1px solid #fed7aa;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 35px -10px rgba(245, 158, 11, 0.2);
+            border-color: #fbbf24;
+        }
+        .feature-icon {
+            font-size: 2.6rem;
+            color: #f59e0b;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #b45309;
+        }
+
+        /* Путь от А к Б */
+        .journey {
+            background: #fff8e7;
+        }
+        .journey-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        .journey-item {
+            flex: 1;
+            min-width: 220px;
+            background: white;
+            padding: 28px;
+            border-radius: 28px;
+            text-align: center;
+        }
+        .journey-item i {
+            font-size: 2rem;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        /* Преимущества */
+        .advantages {
+            background: #ffffff;
+        }
+        .adv-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        .adv-item {
+            flex: 1;
+            min-width: 240px;
+            background: #fffbeb;
+            padding: 28px;
+            border-radius: 28px;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .adv-item:hover {
+            background: #fef3c7;
+        }
+
+        /* Отзывы */
+        .reviews {
+            background: #fffaf0;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .review {
+            background: white;
+            padding: 28px;
+            border-radius: 32px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+        .review:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 24px rgba(245, 158, 11, 0.08);
+        }
+        .review p {
+            font-style: italic;
+            margin-bottom: 16px;
+            color: #3b2f1f;
+        }
+        .review-author {
+            font-weight: 700;
+            color: #f59e0b;
+        }
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 12px;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: white;
+            border-radius: 24px;
+            margin-bottom: 16px;
+            padding: 0 24px;
+            border: 1px solid #fed7aa;
+            cursor: pointer;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #b45309;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            color: #9b6b3e;
+            padding-right: 20px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 320px;
+            padding-bottom: 20px;
+        }
+
+        /* Цена */
+        .pricing {
+            background: linear-gradient(120deg, #fef3c7 0%, #ffffff 100%);
+            text-align: center;
+        }
+        .price-card {
+            max-width: 520px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 48px;
+            padding: 48px 32px;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.15);
+        }
+        .price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #f59e0b;
+        }
+        .price small {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* Футер + стрелка */
+        footer {
+            background: #2d2418;
+            color: #e6c99c;
+            padding: 48px 0 24px;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .footer-links a {
+            color: #ffdfb3;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: #f59e0b;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #f59e0b;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-top:hover {
+            background: #d97706;
+        }
+
+        /* Навигация */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 250, 235, 0.96);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 16px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #b45309;
+        }
+        .logo i {
+            color: #f59e0b;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #7a4b1a;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-menu a:hover {
+            color: #f59e0b;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #b45309;
+        }
+        @media (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: #fffff5;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 30px 0;
+                gap: 24px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .btn {
+                padding: 10px 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="logo"><i class="fas fa-brain"></i> NeuroCount</div>
+        <div class="menu-icon" id="menuIcon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#features">Функции</a></li>
+            <li><a href="#advantages">Преимущества</a></li>
+            <li><a href="#reviews">Отзывы</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#pricing">Цена</a></li>
+            <li><a href="app.html" target="_blank">Приложение</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="hero-content" data-aos="fade-up">
+            <h1>Прокачай мозг<br>с ментальной арифметикой</h1>
+            <p>NeuroCount — тренажёр для развития скорости счёта, памяти и концентрации. Индивидуальные тренировки для детей, взрослых и пожилых.</p>
+            <div class="hero-buttons">
+                <a href="#about" class="btn">Узнать больше <i class="fas fa-arrow-right"></i></a>
+                <a href="app.html" class="btn btn-outline" target="_blank">Открыть приложение <i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Краткое описание -->
+<section id="about">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">Думай быстрее, считай точнее</div>
+        <div class="section-sub" data-aos="fade-up">NeuroCount использует методики ментальной арифметики и нейропсихологии, чтобы сделать ваш мозг гибким, а память — надёжной. Подходит для всех возрастов — от 5 до 99 лет.</div>
+        <div data-aos="fade-up" style="text-align: center;">
+            <i class="fas fa-calculator" style="font-size: 3rem; color:#f59e0b;"></i>
+            <i class="fas fa-chart-line" style="font-size: 3rem; color:#f59e0b; margin: 0 15px;"></i>
+            <i class="fas fa-trophy" style="font-size: 3rem; color:#f59e0b;"></i>
+            <p style="max-width:600px; margin:20px auto;">500 000+ пользователей уже улучшили свою успеваемость и когнитивные способности. Начни тренировку с 5 минут в день!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Путь от А к Б -->
+<section class="journey">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">От медленного счёта к молниеносной реакции</div>
+        <div class="journey-grid">
+            <div class="journey-item" data-aos="zoom-in">
+                <i class="fas fa-stopwatch"></i>
+                <h3>Долгие вычисления</h3>
+                <p>→ Автоматизм и скорость</p>
+            </div>
+            <div class="journey-item" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-brain"></i>
+                <h3>Рассеянное внимание</h3>
+                <p>→ Концентрация и фокус</p>
+            </div>
+            <div class="journey-item" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-child"></i>
+                <h3>Тройки по математике</h3>
+                <p>→ Отличные оценки</p>
+            </div>
+            <div class="journey-item" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-eye"></i>
+                <h3>Проблемы с дислексией/СДВГ</h3>
+                <p>→ Адаптированные упражнения</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Карточки функционала -->
+<section id="features">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">Ключевые возможности</div>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="flip-left">
+                <div class="feature-icon"><i class="fas fa-fingerprint"></i></div>
+                <h3>Адаптивные уровни</h3>
+                <p>Приложение подстраивается под ваш темп: от устного счёта на 2+3 до сложных трёхзначных выражений.</p>
+            </div>
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="100">
+                <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+                <h3>Нейроигры</h3>
+                <p>Сложение на время, матрицы памяти, визуальные пазлы — развиваем мозг в игровой форме.</p>
+            </div>
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="200">
+                <div class="feature-icon"><i class="fas fa-chart-simple"></i></div>
+                <h3>Детальная статистика</h3>
+                <p>Графики скорости реакции, точности, прогресса по дням. Отслеживай свой рост.</p>
+            </div>
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="300">
+                <div class="feature-icon"><i class="fas fa-ear-deaf"></i></div>
+                <h3>Инклюзивные режимы</h3>
+                <p>Адаптация для дислексии, дисграфии, СДВГ, слабого зрения: шрифты, контраст, голосовые подсказки.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Преимущества и отличия -->
+<section id="advantages" class="advantages">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">Почему NeuroCount лучше других тренажёров</div>
+        <div class="adv-list">
+            <div class="adv-item" data-aos="fade-right">
+                <i class="fas fa-chalkboard-user fa-2x" style="color:#f59e0b;"></i>
+                <h3>Научный подход</h3>
+                <p>Основано на методиках ментальной арифметики и нейрокогнитивных исследованиях. Не просто игры, а реальное развитие.</p>
+            </div>
+            <div class="adv-item" data-aos="fade-right" data-aos-delay="100">
+                <i class="fas fa-heart fa-2x" style="color:#f59e0b;"></i>
+                <h3>Забота о разных потребностях</h3>
+                <p>Большинство приложений не учитывают дислексию или СДВГ. У нас — специальные упражнения и настройки интерфейса.</p>
+            </div>
+            <div class="adv-item" data-aos="fade-right" data-aos-delay="200">
+                <i class="fas fa-clock fa-2x" style="color:#f59e0b;"></i>
+                <h3>Минимум времени</h3>
+                <p>Достаточно 5–10 минут в день. Удобно для школьников, работающих и пожилых.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Отзывы -->
+<section id="reviews" class="reviews">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">Реальные истории успеха</div>
+        <div class="reviews-grid">
+            <div class="review" data-aos="fade-up">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>«Дочь всегда ненавидела математику, боялась таблицу умножения. Через месяц занятий на NeuroCount — твёрдая четвёрка и желание решать в уме. Спасибо!»</p>
+                <div class="review-author">— Елена, мама 9-летней девочки</div>
+            </div>
+            <div class="review" data-aos="fade-up" data-aos-delay="100">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>«У меня дислексия, и цифры всегда путались в голове. NeuroCount в режиме для дислексии изменил всё — теперь я считаю быстрее многих коллег!»</p>
+                <div class="review-author">— Дмитрий, 34 года</div>
+            </div>
+            <div class="review" data-aos="fade-up" data-aos-delay="200">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <p>«Мне 67, боялся потерять память. Начал тренироваться по 10 минут в день — мозг стал острее, даже внукам помогаю с математикой!»</p>
+                <div class="review-author">— Сергей Петрович, пенсионер</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">Часто задаваемые вопросы</div>
+        <div class="faq-list" data-aos="fade-up">
+            <div class="faq-item">
+                <div class="faq-question">С какого возраста можно заниматься? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">NeuroCount подходит детям от 5 лет (с упрощённым интерфейсом и визуальными подсказками), а также взрослым и пожилым людям без ограничений.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Как приложение помогает при дислексии/дисграфии? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Специальный режим включает: шрифт OpenDyslexic, разбивку чисел на цветовые блоки, голосовое сопровождение примеров, возможность отвечать голосом вместо набора на клавиатуре. Также есть упражнения на визуальное запоминание без участия букв.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Сколько стоит? Есть ли бесплатная версия? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Бесплатно: базовые упражнения (до 10 минут в день), ограниченный набор нейроигр. Премиум (349 ₽/мес или 2490 ₽/год) — все упражнения, неограниченное время, детальная статистика, семейный доступ (до 4 человек). Первые 7 дней бесплатно.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Можно ли использовать офлайн? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Да, после установки все основные упражнения доступны без интернета. Для синхронизации статистики и обновлений требуется подключение раз в неделю.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Блок с ценой -->
+<section id="pricing" class="pricing">
+    <div class="container">
+        <div class="price-card" data-aos="flip-up">
+            <h2>Премиум-доступ</h2>
+            <div class="price">349 ₽ <small>/ месяц</small></div>
+            <p style="margin: 20px 0;">Все упражнения и игры без ограничений, расширенная статистика, семейный доступ (до 4 человек), приоритетная поддержка. 7 дней бесплатно.</p>
+            <a href="#" class="btn" id="payButton">Начать бесплатно <i class="fas fa-rocket"></i></a>
+            <p style="font-size:0.8rem; margin-top:20px;">Отмена в любой момент, без скрытых платежей</p>
+        </div>
+    </div>
+</section>
+
+<!-- Футер -->
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <a href="#">О компании</a>
+            <a href="#">Политика конфиденциальности</a>
+            <a href="#">Поддержка</a>
+            <a href="app.html" target="_blank">Приложение</a>
+        </div>
+        <p>&copy; 2026 NeuroCount — тренируй мозг, развивай интеллект.</p>
+        <p style="margin-top: 10px;"><i class="fas fa-brain" style="color:#f59e0b;"></i> Сделай свои вычисления мгновенными</p>
+    </div>
+</footer>
+
+<!-- Стрелка вверх -->
+<div class="scroll-top" id="scrollTopBtn">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true, offset: 100 });
+
+    // Бургер-меню
+    const menuIcon = document.getElementById('menuIcon');
+    const navMenu = document.getElementById('navMenu');
+    menuIcon.addEventListener('click', () => navMenu.classList.toggle('active'));
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => navMenu.classList.remove('active'));
+    });
+
+    // Плавный скролл для якорей
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            if (targetId === '') return;
+            const target = document.getElementById(targetId);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // Стрелка вверх
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) scrollBtn.classList.add('show');
+        else scrollBtn.classList.remove('show');
+    });
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // FAQ аккордеон
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            faqItems.forEach(i => i.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        });
+    });
+    if (faqItems.length) faqItems[0].classList.add('active');
+
+    // Кнопка оплаты (заглушка)
+    const payBtn = document.getElementById('payButton');
+    payBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('Демо-режим. Замените ссылку на реальную страницу оплаты.');
+    });
+</script>
+</body>
+</html>
